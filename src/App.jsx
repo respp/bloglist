@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import { Notification } from './components/Notification'
-import login from './services/login'
+import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [errorMessage ,setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [errorMessage ,setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const App = () => {
 
   const handleLogin = async (e) =>{
     e.preventDefault()
-    // console.log('loggin in with ', username, password)
+    console.log('loggin in with ', username, password)
     try {
       const user = await loginService.login({
         username, password,
