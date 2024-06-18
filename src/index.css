@@ -1,0 +1,22 @@
+.notification{
+    background-color: #9fe76f77;
+    color: #438b13;
+    border: 2px solid green;
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 2px;
+}
+
+.error{
+    background-color: #e76f7b77;
+    color: #cc1b1b;
+    border: 2px solid rgb(128, 0, 0);
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 2px;
+}
+
+.blog{
+    border: solid 1px black;
+    width: auto;
+}
