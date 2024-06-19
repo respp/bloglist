@@ -20,3 +20,9 @@
     border: solid 1px black;
     width: auto;
 }
+
+.removeBtn{
+    background-color: red;
+    color: #e9dfdf;
+    font-weight: bold;
+}
