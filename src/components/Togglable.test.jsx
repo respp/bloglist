@@ -4,11 +4,12 @@ import Togglable from './Togglable'
 
 describe('<Togglable />', () => {
   let container
+  let mockHandler = vi.fn()
 
   beforeEach(() => {
     container = render(
-      <Togglable firstButtonLabel='Details'>
-        <div className="testDiv" >
+      <Togglable firstButtonLabel='Details' secondButtonLabel='Hide'>
+        <div className="blog-details" >
           Url:
         </div>
       </Togglable>
@@ -32,6 +33,8 @@ describe('<Togglable />', () => {
 
     const div = container.querySelector('.togglableContent')
     expect(div).not.toHaveStyle('display: none')
+    screen.debug()
   })
+
 
 })

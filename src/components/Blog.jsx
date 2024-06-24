@@ -1,9 +1,11 @@
-import { useRef } from 'react'
-import Togglable from './Togglable'
+import { useState } from 'react'
 
 const Blog = ({ blog, updateBlog, deleteBlog }) => {
-  const blogButtonRef = useRef()
+  const [visible, setVisible] = useState(false)
 
+  const toggleVisibility = () => {
+    setVisible(!visible)
+  }
   const updateLikes =() => {
     const blogId = blog.id
     updateBlog({
@@ -27,14 +29,15 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
   return(
     <div className="blog">
       &quot;{blog.title}&quot; by {blog.author}
-      <Togglable firstButtonLabel='Details' secondButtonLabel='Hide' ref={blogButtonRef}>
-        <div className='testDiv'>
-            Url: {blog.url} <br />
-            Likes: {blog.likes}
+      <button onClick={toggleVisibility}>{visible ? 'Hide' : 'Details'}</button>
+      {visible ? (
+        <div className="blog-details">
+          Url: {blog.url} <br />
+          Likes: {blog.likes}
           <button onClick={updateLikes}>Like</button> <br />
           <button onClick={removeBlog} className="removeBtn">remove</button>
         </div>
-      </Togglable>
+      ) : null}
     </div>
   )}
 
