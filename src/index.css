@@ -19,6 +19,7 @@
 .blog{
     border: solid 1px black;
     width: auto;
+    padding: 3px;
 }
 
 .removeBtn{

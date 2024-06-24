@@ -5,31 +5,29 @@ import userEvent from '@testing-library/user-event'
 describe('Blog', () => {
   const blog = {
     id: '1',
-    title: 'Harry Potter',
-    author: 'la autora de harry potter',
-    url: 'harrypoter.com',
+    title: 'Titulo de ejemplo',
+    author: 'Autor de ejemplo',
+    url: 'ejemplo.com',
     likes: 3
   }
   let container
-  let likeMock
   let mockUpdateBlog
 
   beforeEach(() => {
     mockUpdateBlog = vi.fn()
-    likeMock = vi.fn()
-    container = render(<Blog blog={blog} handleLike={likeMock} handleDelete={null} ownedByUser={false} updateBlog={mockUpdateBlog}></Blog>).container
+    container = render(<Blog blog={blog} deleteBlog={null} ownedByUser={false} updateBlog={mockUpdateBlog}></Blog>).container
   })
 
   test('initially title is rendered', () => {
-    expect(container).toHaveTextContent('Harry Potter')
+    expect(container).toHaveTextContent('Titulo de ejemplo')
   })
 
   test('initially author is rendered', () => {
-    expect(container).toHaveTextContent('la autora de harry potter')
+    expect(container).toHaveTextContent('Autor de ejemplo')
   })
 
   test('initially url is not rendered', () => {
-    expect(container).not.toHaveTextContent('harrypoter.com')
+    expect(container).not.toHaveTextContent('ejemplo.com')
   })
 
   test('initially likes not defined', () => {
@@ -41,7 +39,7 @@ describe('Blog', () => {
     const button = screen.getByText('Details', { exact: false }) //exact:false es que no necesitamos coincidencia exacta del texto
     await user.click(button)
 
-    expect(container).toHaveTextContent('harrypoter.com')
+    expect(container).toHaveTextContent('ejemplo.com')
     expect(container).toHaveTextContent('3')
   })
 

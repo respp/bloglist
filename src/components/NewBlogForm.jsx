@@ -23,14 +23,17 @@ export const NewBlogForm = ({ createNewBlog }) => {
     <div>
       <h2>Create new blog</h2>
       <form onSubmit={addBlog}>
-        <div>
-          title: <input
+        <div className='new-blog'>
+          <label htmlFor="title">title: </label><input
+            id='title'
             value={newBlogName}
             onChange={({ target }) => setNewBlogName(target.value)}required /> <br />
-          author: <input
+          <label htmlFor="author">author: </label><input
+            id='author'
             value={newBlogAuthor}
             onChange={({ target }) => setNewBlogAuthor(target.value)}required /> <br />
-          url: <input
+          <label htmlFor="url">url: </label><input
+            id='url'
             value={newBlogUrl}
             onChange={({ target }) => setNewBlogUrl(target.value)} required /> <br />
 
