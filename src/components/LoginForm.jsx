@@ -5,7 +5,7 @@ export const LoginForm = ({ handleLogin, username, handleUsernameChange, passwor
   return (
     <>
       <h2>Log in to application</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} data-testid='form'>
         <div>
           username
           <input
@@ -13,6 +13,7 @@ export const LoginForm = ({ handleLogin, username, handleUsernameChange, passwor
             value={username}
             name="Username"
             onChange={handleUsernameChange}
+            data-testid='username'
           />
         </div>
         <div>
@@ -22,6 +23,7 @@ export const LoginForm = ({ handleLogin, username, handleUsernameChange, passwor
             value={password}
             name="Password"
             onChange={handlePasswordChange}
+            data-testid='password'
           />
         </div>
         <button type="submit">login</button>
