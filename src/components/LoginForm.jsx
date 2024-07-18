@@ -1,5 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/userReducer";
@@ -8,8 +7,8 @@ import { Error } from "./ErrorMessage";
 
 export const LoginForm = () => {
   const dispatch = useDispatch()
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -52,12 +51,4 @@ export const LoginForm = () => {
       <Error />
     </>
   );
-};
-
-// LoginForm.propTypes = {
-//   handleLogin: PropTypes.func.isRequired,
-//   handleUsernameChange: PropTypes.func.isRequired,
-//   handlePasswordChange: PropTypes.func.isRequired,
-//   username: PropTypes.string.isRequired,
-//   password: PropTypes.string.isRequired,
-// };
+}
