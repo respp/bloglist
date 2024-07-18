@@ -1,5 +1,5 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test')
+const { defineConfig, devices } = require("@playwright/test");
 
 /**
  * Read environment variables from file.
@@ -12,12 +12,12 @@ const { defineConfig, devices } = require('@playwright/test')
  */
 module.exports = defineConfig({
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: "http://localhost:5173",
   },
   // timeout: 10000,
   fullyParallel: false,
   workers: 1,
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -25,7 +25,7 @@ module.exports = defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   // use: {
   /* Base URL to use in actions like `await page.goto('/')`. */
@@ -38,18 +38,18 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
 
     /* Test against mobile viewports. */
@@ -79,5 +79,4 @@ module.exports = defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-})
-
+});
