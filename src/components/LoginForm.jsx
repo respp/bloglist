@@ -1,13 +1,32 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { notification } from "../reducers/notificationReducer";
+import { login } from "../reducers/userReducer";
 
 export const LoginForm = ({
-  handleLogin,
-  username,
-  handleUsernameChange,
-  password,
-  handlePasswordChange,
+  // handleLogin,
+  // username,
+  // handleUsernameChange,
+  // password,
+  // handlePasswordChange,
 }) => {
+  const dispatch = useDispatch()
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log("loggin in with ", username, password);
+    try {
+        dispatch(login({username, password}))
+        setUsername("");
+        setPassword("");
+    } catch (err) {
+        dispatch(notification('wrong username or password', 5))
+    }
+  }
   return (
     <>
       <h2>Log in to application</h2>
@@ -18,7 +37,7 @@ export const LoginForm = ({
             type="text"
             value={username}
             name="Username"
-            onChange={handleUsernameChange}
+            onChange={({ target }) => setUsername(target.value)}
             data-testid="username"
           />
         </div>
@@ -28,7 +47,7 @@ export const LoginForm = ({
             type="password"
             value={password}
             name="Password"
-            onChange={handlePasswordChange}
+            onChange={({ target }) => setPassword(target.value)}
             data-testid="password"
           />
         </div>
@@ -38,10 +57,10 @@ export const LoginForm = ({
   );
 };
 
-LoginForm.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
-  handleUsernameChange: PropTypes.func.isRequired,
-  handlePasswordChange: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-};
+// LoginForm.propTypes = {
+//   handleLogin: PropTypes.func.isRequired,
+//   handleUsernameChange: PropTypes.func.isRequired,
+//   handlePasswordChange: PropTypes.func.isRequired,
+//   username: PropTypes.string.isRequired,
+//   password: PropTypes.string.isRequired,
+// };
