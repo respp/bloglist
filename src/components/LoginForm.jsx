@@ -2,16 +2,11 @@ import React from "react";
 // import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { notification } from "../reducers/notificationReducer";
 import { login } from "../reducers/userReducer";
+import { error } from "../reducers/errorMessageReducer";
+import { Error } from "./ErrorMessage";
 
-export const LoginForm = ({
-  // handleLogin,
-  // username,
-  // handleUsernameChange,
-  // password,
-  // handlePasswordChange,
-}) => {
+export const LoginForm = () => {
   const dispatch = useDispatch()
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,11 +15,12 @@ export const LoginForm = ({
     e.preventDefault();
     console.log("loggin in with ", username, password);
     try {
-        dispatch(login({username, password}))
+        await dispatch(login({username, password}))
         setUsername("");
         setPassword("");
     } catch (err) {
-        dispatch(notification('wrong username or password', 5))
+      console.error('el error es: ',err)
+      dispatch(error('wrong username or password', 5))
     }
   }
   return (
@@ -53,6 +49,7 @@ export const LoginForm = ({
         </div>
         <button type="submit">login</button>
       </form>
+      <Error />
     </>
   );
 };

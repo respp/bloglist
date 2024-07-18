@@ -1,26 +1,9 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { newBlog } from "../reducers/blogReducer";
+import { notification } from "../reducers/notificationReducer";
 
-export const NewBlogForm = () => { //{ createNewBlog }
+export const NewBlogForm = () => {
   const dispatch = useDispatch()
-
-  // const [newBlogName, setNewBlogName] = useState("");
-  // const [newBlogAuthor, setNewBlogAuthor] = useState("");
-  // const [newBlogUrl, setNewBlogUrl] = useState("");
-
-  // const addBlog = (e) => {
-  //   e.preventDefault();
-  //   createNewBlog({
-  //     title: newBlogName,
-  //     author: newBlogAuthor,
-  //     url: newBlogUrl,
-  //     likes: 0,
-  //   });
-  //   setNewBlogName("");
-  //   setNewBlogAuthor("");
-  //   setNewBlogUrl("");
-  // };
 
   const addBlog = e =>{
     e.preventDefault()
@@ -32,6 +15,7 @@ export const NewBlogForm = () => { //{ createNewBlog }
       likes : 0,
     }
     dispatch(newBlog(content))
+    dispatch(notification(`the blog "${content.title}" by ${content.author} was added`, 5))
   }
 
   return (
@@ -43,28 +27,22 @@ export const NewBlogForm = () => { //{ createNewBlog }
           <input
             id="title"
             name="title"
-            // value={newBlogName}
-            // onChange={({ target }) => setNewBlogName(target.value)}
             required
-          />{" "}
+          />
           <br />
           <label htmlFor="author">author: </label>
           <input
             id="author"
             name="author"
-            // value={newBlogAuthor}
-            // onChange={({ target }) => setNewBlogAuthor(target.value)}
             required
-          />{" "}
+          />
           <br />
           <label htmlFor="url">url: </label>
           <input
             id="url"
             name="url"
-            // value={newBlogUrl}
-            // onChange={({ target }) => setNewBlogUrl(target.value)}
             required
-          />{" "}
+          />
           <br />
           <button type="submit">Create</button>
         </div>
