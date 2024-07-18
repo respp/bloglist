@@ -1,30 +1,25 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { likeABlog, deleteBlog } from "../reducers/blogReducer";
 
-const Blog = ({ blog, updateBlog, deleteBlog }) => {
+const Blog = ({ blog }) => { //blog, updateBlog, deleteBlog
+  const dispatch = useDispatch()
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => {
     setVisible(!visible);
-  };
-  const updateLikes = () => {
-    const blogId = blog.id;
-    updateBlog(
-      {
-        title: blog.title,
-        author: blog.author,
-        url: blog.url,
-        likes: blog.likes + 1,
-      },
-      blogId,
-    );
-  };
+  }
 
-  const removeBlog = () => {
+  const like = blog => dispatch(likeABlog(blog, blog.id))
+
+  const removeBlog = blog => {
     const confirm = window.confirm(`Remove ${blog.title} by ${blog.author}?`);
     if (confirm) {
-      return deleteBlog(blog.id);
+      dispatch(deleteBlog(blog.id))
     }
-  };
+  }
+
+  
 
   return (
     <div className="blog">
@@ -34,8 +29,8 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
         <div className="blog-details">
           Url: {blog.url} <br />
           Likes: {blog.likes}
-          <button onClick={updateLikes}>Like</button> <br />
-          <button onClick={removeBlog} className="removeBtn">
+          <button onClick={()=>like(blog)}>Like</button> <br />
+          <button onClick={()=>removeBlog(blog)} className="removeBtn">
             remove
           </button>
         </div>

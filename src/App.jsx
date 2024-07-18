@@ -7,91 +7,44 @@ import loginService from "./services/login";
 import Togglable from "./components/Togglable";
 import { Notification } from "./components/Notification";
 import { LoginForm } from "./components/LoginForm";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeBlogs } from "./reducers/blogReducer";
+import { initializeUser, login } from "./reducers/userReducer";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch()
+  const blogs = useSelector(state => state.blogs)
+  const user = useSelector(state => state.user)
+
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState(null);
 
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then((blogs) => {
-        setBlogs(blogs.sort((b1, b2) => b2.likes - b1.likes));
-      })
-      .catch((error) => {
-        console.error("Error fetching blogs:", error);
-      });
-  }, []);
+  useEffect(()=>{
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
-    }
+    dispatch(initializeUser())
   }, []);
 
-  console.log("blogs: ", blogs);
+  // console.log("blogs: ", blogs);
 
   const blogFormRef = useRef();
-
-  const createNewBlog = async (blogObject) => {
-    try {
-      blogFormRef.current.toggleVisibility();
-      const returnedBlog = await blogService.create(blogObject);
-      setBlogs((prevBlogs) => prevBlogs.concat(returnedBlog));
-      setNotificationMessage(
-        `a new blog "${blogObject.title}" by ${blogObject.author}`,
-      );
-      setTimeout(() => {
-        setNotificationMessage(null);
-      }, 3000);
-    } catch (err) {
-      setErrorMessage(`${err}`);
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 3000);
-    }
-  };
-
-  const updateBlog = (blogObject, blogId) => {
-    blogService.update(blogId, blogObject).then((returnedBlog) => {
-      console.log(returnedBlog);
-      setBlogs(
-        blogs.map((blog) =>
-          blog.id !== returnedBlog.id ? blog : returnedBlog,
-        ),
-      );
-    });
-  };
-
-  const deleteBlog = async (blogId) => {
-    try {
-      await blogService.deleteBlog(blogId);
-      setBlogs(blogs.filter((blog) => blog.id !== blogId));
-    } catch (err) {
-      setErrorMessage("Error deleting blog", err);
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 3000);
-    }
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log("loggin in with ", username, password);
     try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
+      // const user = await loginService.login({
+      //   username,
+      //   password,
+      // });
+      dispatch(login({username, password}))
 
-      window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
+      window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
 
       blogService.setToken(user.token);
       setUser(user);
@@ -107,7 +60,7 @@ const App = () => {
 
   const handleLogout = () => {
     console.log("sesión cerrada");
-    localStorage.removeItem("loggedNoteappUser");
+    localStorage.removeItem("loggedBlogappUser");
     setUser(null);
   };
 
@@ -140,7 +93,7 @@ const App = () => {
         secondButtonLabel="cancel"
         ref={blogFormRef}
       >
-        <NewBlogForm createNewBlog={createNewBlog} />
+        <NewBlogForm />
       </Togglable>
       <Error message={errorMessage} />
       <div data-testid="blogs">
@@ -148,8 +101,6 @@ const App = () => {
           <Blog
             key={blog.id}
             blog={blog}
-            updateBlog={updateBlog}
-            deleteBlog={deleteBlog}
           />
         ))}
       </div>

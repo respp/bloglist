@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { NewBlogForm } from "./NewBlogForm";
+import { NewBlogForm } from "../components/NewBlogForm";
 import { beforeEach } from "vitest";
 
 describe("<NoteForm /> updates parent state and calls onSubmit", async () => {
