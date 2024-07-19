@@ -5,12 +5,10 @@ import { useParams } from "react-router-dom";
 export const UserBlogs = () => {
   const { id } = useParams();
   const user = useSelector((state) =>
-    state.users.find((user) => user.id === id)
+    state.users.find(user => user.id === id)
   );
 
-  if (!user) {
-    return <div>User not found</div>;
-  }
+  if (!user) return <div>User not found</div>
 
   if(user.blogs.length === 0) return (
     <>

@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { DisplayBlogs } from "../components/DisplayBlogs";
 import { DisplayUsers } from "../components/DisplayUsers";
@@ -6,19 +5,16 @@ import { LoginForm } from "../components/LoginForm";
 import { useSelector } from "react-redux";
 import { UserBlogs } from "../components/UserBlogs";
 import { User } from '../components/User'
+import Blog from "../components/Blog";
+
 
 const AppRoutes = () => {
   const user = useSelector(state => state.user)
 
-  if (user === null) {
-    return (
-      <div>
-        <LoginForm />
-      </div>
-    );
-  }
+  if (user === null) return <LoginForm />
 
   return (
+    <>
     <Routes>
       <Route path="/" element={
         <>
@@ -38,8 +34,15 @@ const AppRoutes = () => {
           <UserBlogs />
         </>
         } />
+        <Route path="/blogs/:id" element={
+        <>
+          <User />
+          <Blog />
+        </>
+        } />
       <Route path="*" element={<Navigate to="/" />} /> {/* Redirigir rutas desconocidas a la página principal */}
     </Routes>
+    </>
   );
 };
 

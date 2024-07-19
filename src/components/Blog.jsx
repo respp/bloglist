@@ -1,14 +1,19 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { likeABlog, deleteBlog } from "../reducers/blogReducer";
-
-const Blog = ({ blog }) => { //blog, updateBlog, deleteBlog
+import { useParams } from "react-router-dom";
+import Togglable from "./Togglable";
+import { CommentForm } from "./CommentForm";
+import { useRef } from "react";
+const Blog = () => {
+  const { id } = useParams();
+  const blog = useSelector((state) =>
+    state.blogs.find(blog => blog.id === id)
+  )
   const dispatch = useDispatch()
-  const [visible, setVisible] = useState(false);
+  const commentRef = useRef()
 
-  const toggleVisibility = () => {
-    setVisible(!visible);
-  }
+  console.log(blog)
+  if (!blog) return <div>Blog not found</div>
 
   const like = blog => dispatch(likeABlog(blog, blog.id))
 
@@ -17,24 +22,25 @@ const Blog = ({ blog }) => { //blog, updateBlog, deleteBlog
     if (confirm) {
       dispatch(deleteBlog(blog.id))
     }
-  }
-
-  
+  }  
 
   return (
-    <div className="blog">
-      &quot;{blog.title}&quot; by {blog.author}
-      <button onClick={toggleVisibility}>{visible ? "Hide" : "Details"}</button>
-      {visible ? (
-        <div className="blog-details">
-          Url: {blog.url} <br />
+    <div>
+      <h1>&quot;{blog.title}&quot; by {blog.author}</h1>
+          <a href='https://google.com'>{blog.url}</a> <br />
           Likes: {blog.likes}
           <button onClick={()=>like(blog)}>Like</button> <br />
           <button onClick={()=>removeBlog(blog)} className="removeBtn">
             remove
           </button>
-        </div>
-      ) : null}
+          <p>added by {blog.user.name}</p>
+          <Togglable
+          firstButtonLabel="Comment on blog"
+          secondButtonLabel="Cancel"
+          // ref={commentRef}
+        >
+          <CommentForm />
+        </Togglable>
     </div>
   );
 };

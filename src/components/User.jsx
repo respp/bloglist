@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { logout } from '../reducers/userReducer'
+import NavigationMenu from './NavigationMenu'
 
 export const User = () => {
     const dispatch = useDispatch()
@@ -12,7 +13,7 @@ export const User = () => {
   
     return (
     <div>
-    <h1>blogs</h1>
+      <NavigationMenu />
       <p>
         {user.username} logged in<button onClick={handleLogout}>logout</button>
       </p>
