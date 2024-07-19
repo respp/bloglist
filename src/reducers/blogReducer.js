@@ -40,7 +40,6 @@ export const initializeBlogs = ()=>{
 export const newBlog = content =>{
     return async dispatch =>{
         const createBlog = await blogService.create(content)
-        // dispatch(appendBlog(createBlog).sort((b1, b2) => b2.likes - b1.likes))
         console.log(createBlog)
         dispatch(appendBlog(createBlog))
     }

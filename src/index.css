@@ -27,3 +27,19 @@
   color: #e9dfdf;
   font-weight: bold;
 }
+
+.user{
+  display: flex;
+}
+
+.table{
+  width: 40%;
+  margin: auto;
+  border-collapse: collapse;
+  border: solid 1px gray;
+}
+
+td{
+  border: solid 1px rgb(156, 156, 156);
+  text-align: center;
+}
