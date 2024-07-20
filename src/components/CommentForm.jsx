@@ -1,18 +1,24 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { commentBlog } from '../reducers/blogReducer'
 
-export const CommentForm = () => {
+export const CommentForm = ({ id }) => {
+  const dispatch = useDispatch()
+
     const addComment = e =>{
-        alert('new comment')
+      e.preventDefault()
+      const comment = e.target.comment.value
+      console.log(comment)
+      dispatch(commentBlog(id, comment))
+      e.target.comment.value = ''
     }
 
   return (
     <div>
-      <h2>Comment</h2>
       <form onSubmit={addComment}>
-          <label htmlFor="title">title: </label>
           <input
-            id="title"
-            name="title"
+            id="comment"
+            name="comment"
             required
           />
           <button type="submit">Send</button>

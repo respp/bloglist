@@ -10,7 +10,7 @@ const Blog = () => {
     state.blogs.find(blog => blog.id === id)
   )
   const dispatch = useDispatch()
-  const commentRef = useRef()
+  // const commentRef = useRef()
 
   console.log(blog)
   if (!blog) return <div>Blog not found</div>
@@ -24,6 +24,7 @@ const Blog = () => {
     }
   }  
 
+  console.log(blog.comments)
   return (
     <div>
       <h1>&quot;{blog.title}&quot; by {blog.author}</h1>
@@ -34,12 +35,20 @@ const Blog = () => {
             remove
           </button>
           <p>added by {blog.user.name}</p>
+
+          <h3>Comments</h3>
+
+          <ul>
+            {blog.comments.map((comment, i)=>
+              <li key={i}>{comment}</li>
+          )}
+          </ul>
           <Togglable
           firstButtonLabel="Comment on blog"
           secondButtonLabel="Cancel"
           // ref={commentRef}
         >
-          <CommentForm />
+          <CommentForm id={blog.id}/>
         </Togglable>
     </div>
   );
