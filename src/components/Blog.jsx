@@ -3,7 +3,8 @@ import { likeABlog, deleteBlog } from "../reducers/blogReducer";
 import { useParams } from "react-router-dom";
 import Togglable from "./Togglable";
 import { CommentForm } from "./CommentForm";
-import { useRef } from "react";
+import { Button } from 'react-bootstrap';
+
 const Blog = () => {
   const { id } = useParams();
   const blog = useSelector((state) =>
@@ -28,12 +29,12 @@ const Blog = () => {
   return (
     <div>
       <h1>&quot;{blog.title}&quot; by {blog.author}</h1>
-          <a href='https://google.com'>{blog.url}</a> <br />
+          Url: <a href={blog.url}className="custom-link">{blog.url}</a> <br />
           Likes: {blog.likes}
-          <button onClick={()=>like(blog)}>Like</button> <br />
-          <button onClick={()=>removeBlog(blog)} className="removeBtn">
+          <Button variant="outline-light" onClick={()=>like(blog)}>Like</Button>{' '}<br />
+          <Button variant="outline-danger" onClick={()=>removeBlog(blog)}>
             remove
-          </button>
+          </Button>{' '}
           <p>added by {blog.user.name}</p>
 
           <h3>Comments</h3>

@@ -6,6 +6,7 @@ import { Notification } from "./Notification";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Error } from './ErrorMessage';
+import { Card } from 'react-bootstrap';
 
 export const DisplayBlogs = () => {
     const blogs = useSelector(state => state.blogs)
@@ -26,7 +27,20 @@ export const DisplayBlogs = () => {
       <Error />
       <div data-testid="blogs">
         {blogs.map((blog) => (
-          <div key={blog.id} className='blog'><Link to={`/blogs/${blog.id}`}>"{blog.title}" by {blog.author}</Link></div>
+            <Card key={blog.id}>
+              <Card.Body>
+                <blockquote className="blockquote mb-0">
+                <Link to={`/blogs/${blog.id}`}>
+                  <p>
+                    {' '}{blog.title}{' '}
+                  </p>
+                </Link>
+                  <footer className="blockquote-footer">
+                    By <cite title="Source Title">{blog.author}</cite>
+                  </footer>
+                </blockquote>
+              </Card.Body>
+            </Card>
         ))}
       </div>
     </div>

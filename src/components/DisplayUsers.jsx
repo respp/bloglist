@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Table } from 'react-bootstrap';
+
 
 export const DisplayUsers = () => {
   
@@ -8,7 +10,7 @@ export const DisplayUsers = () => {
   return (
     <>
       <h1>Users</h1>
-      <table className='table'>
+      <Table striped bordered hover variant="dark">
           <tbody><tr>
             <td></td>
             <td>
@@ -24,7 +26,7 @@ export const DisplayUsers = () => {
             </tr>
           ))}
           </tbody>
-      </table>
+      </Table>
     </>
   )
 }

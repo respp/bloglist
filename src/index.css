@@ -7,6 +7,30 @@
   border-radius: 2px;
 }
 
+.custom-navbar {
+  margin: 0;
+  padding: 0;
+  width: 100%; /* Asegúrate de que ocupe todo el ancho disponible */
+}
+
+.custom-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.custom-link {
+  color: #007bff; /* Color del enlace */
+  text-decoration: none; /* Eliminar subrayado */
+  font-size: 16px; /* Tamaño de fuente */
+  transition: color 0.3s ease; /* Efecto de transición para el color */
+}
+
+.custom-link:hover {
+  color: #0056b3; /* Color del enlace al pasar el ratón */
+  text-decoration: underline; /* Subrayar al pasar el ratón */
+}
+
 .error {
   background-color: #e76f7b77;
   color: #cc1b1b;
